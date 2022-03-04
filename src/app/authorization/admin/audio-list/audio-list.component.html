@@ -1,0 +1,110 @@
+<div class="container  col-lg-12 py-5">
+    <div class="col-lg-12">
+        <div class="row jumbotron bg-white border border-primary">
+            <legend>Filter audio list</legend>
+            <div class="input-group mb-3 ">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="location">Location</label>
+                </div>
+                <select class="custom-select" id="location"
+                name="location" 
+                [(ngModel)] = "locationId"
+                #location="ngModel">                
+                  <option *ngFor="let opt of locations" [value]="opt.locationId">{{ opt.locationName }}</option>
+                </select>
+              </div>             
+           
+            <div class="input-group mb-3 ">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Approved</label>
+                </div>
+                <select class="custom-select" id="ddlIsApproved" name="ddlIsApproved" 
+                  [(ngModel)]="selectedIsApproved" #ddlIsApproved >
+                  <option value="1">Yes</option>
+                  <option value="2">No</option>
+                </select>
+            </div>    
+                                  
+            <button type="submit" class="btn btn-primary float-right" (click)="onSearchClick()" >Submit</button>
+        </div>
+        <div class="row jumbotron bg-white border border-primary ">
+            <div class="row py-1">
+                <div class="col">
+                  <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Actions</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button ngbDropdownItem (click)="onApprove(nauhas)">Approve</button>
+                      <button ngbDropdownItem (click)="onDelete(nauhas)">Delete</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        
+            <div class="table table-hover table-responsive">
+                <table class=" table">
+                    <thead class="thead-dark table-striped">
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Writer</th>
+                        <th scope="col">Nauha Khawan</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Audio</th>
+                        <!-- <th scope="col">Action</th> -->
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let nauha of nauhas">
+                            <td> <input type="checkbox" [name]="nauha.id" [checked]="nauha.approved" [(ngModel)] = "nauha.approved"></td>
+                            <td>
+                              <button type="button" class="btn btn-link" 
+                               data-toggle="modal" data-target="#exampleModal"
+                               (click)="onEditClick(nauha)">{{ nauha.title }}</button> 
+                           </td>
+                            <td>  
+                                <span class="d-inline-block text-truncate" style="max-width: 150px;"
+                                 ngbTooltip="{{ nauha.description }}" container="body">
+                                {{ nauha.description }}
+                                </span>
+                                
+                            </td>
+                            <td>{{ nauha.lyricist }}</td>
+                            <td>{{ nauha.orator }}</td>
+                            <td>{{ nauha.locationName }}</td>
+                            <td>{{ nauha.year }}</td>
+                            <td><div mat-card-image plyr plyrTitle="Zainab Che Wadaan Baye Hussaina (Kashmiri)" 
+                                plyrType="audio" [plyrPlaysInline]="true" [plyrCrossOrigin]="true"
+                               [plyrSources]="nauha.url"></div></td>
+                            <!-- <td>
+                                
+                                <button type="button" ngbTooltip="Edit" class="btn btn-outline-info btn-sm">E</button> 
+                                <button type="button" ngbTooltip="Delete" class="btn btn-outline-danger btn-sm">X</button>
+                            </td> -->
+                        </tr>                     
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        
+</div>
+<!-- Modal -->
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">     
+        <h5 class="modal-title" id="exampleModalLabel">Update Nauha Details</h5> 
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-upload-files [nauha]="selectedNauha"></app-upload-files>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onUpdateClick()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

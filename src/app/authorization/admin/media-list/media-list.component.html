@@ -1,0 +1,138 @@
+<div class="container col-lg-10 py-2">
+    
+    <div class="row">   
+        <div class="col-lg-12 ">
+            <div class=" jumbotron bg-white border border-primary">
+                <form #f="ngForm" (ngSubmit) = "onSubmit(f)">
+                    <h2>Fill the below details to save the Video</h2>
+                   
+                    <div class="form-group" >
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" 
+                            [ngClass] = "{'is-invalid': title.invalid && title.touched }" 
+                            id="title" aria-describedby="titleHelp" 
+                            name="title"
+                            [(ngModel)] = "video.title"
+                            #title="ngModel"
+                            required>
+                            <div class="invalid-feedback" >Please provide a valid title</div>
+                            <small id="titleHelp" class="form-text text-muted">Title is a short given name of the video</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="10" cols="8" class="form-control" 
+                            [ngClass] = "{ 'is-invalid': description.invalid && description.touched }"
+                            name="description"
+                            [(ngModel)] = "video.description"
+                            required #description="ngModel"></textarea>
+                            <div class="invalid-feedback" >Please provide a valid description</div>
+                            <small id="descriptionHelp" class="form-text text-muted">Description is a short note on video</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="embedUrl">Youtube Embed Url</label>
+                        <textarea id="embedUrl" rows="10" cols="8" class="form-control" 
+                            [ngClass] = "{ 'is-invalid': embedUrl.invalid && embedUrl.touched }"
+                            name="embedUrl"
+                            [(ngModel)] = "video.embedUrl"
+                            required #embedUrl="ngModel"></textarea>
+                            <div class="invalid-feedback" >Please provide a valid description</div>
+                            <small id="embedUrlnHelp" class="form-text text-muted">Visit here to see how to get embed url for youtube<a href="www.bla.com" target="_blank">click here</a></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="contentType">Content Type</label>
+                        <select id="contentType" name="contentType" class="form-control"
+                            [(ngModel)] = "video.contentType"
+                            (ngModelChange) = "onChangeSelection($event)"
+                            [ngClass] = "{'is-invalid': contentType.invalid && contentType.touched }" 
+                            required #contentType="ngModel">
+                            <option *ngFor="let opt of contentTypes" [value]="opt.id">{{ opt.name }}</option>
+                        </select>
+                        <div class="invalid-feedback" >Content type is required</div>
+                            <small id="locationHelp" class="form-text text-muted">Please enter a if the content link is live or static</small>
+                    </div>
+                    <div class="form-group" >
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control" 
+                            [ngClass] = "{'is-invalid': tags.invalid && tags.touched }" 
+                            id="tags" aria-describedby="tagsHelp" 
+                            name="tags"
+                            [(ngModel)] = "video.tags"
+                            #tags="ngModel"
+                            required>
+                            <div class="invalid-feedback" >Please provide a valid tag</div>
+                            <small id="tagsHelp" class="form-text text-muted">Tags should be comma separated like: Majlis,Muharram,5,kashmiri</small>
+                    </div>
+                    <div class="form-group" >
+                        <label for="channelName">Channel Name</label>
+                        <input type="text" class="form-control" 
+                            [ngClass] = "{'is-invalid': channelName.invalid && channelName.touched }" 
+                            id="channelName" aria-describedby="tagsHelp" 
+                            name="channelName"
+                            [(ngModel)] = "video.channelName"
+                            #channelName="ngModel"
+                            required>
+                            <div class="invalid-feedback" >Please provide a valid channel name</div>
+                            <small id="channelNameeHelp" class="form-text text-muted">Name of your youtube channel</small>
+                    </div>
+                        <button type="submit" [disabled]="f.invalid" class="btn btn-primary">Save</button>
+                        <button type="button" (click)="onClear()" class="btn btn-danger ml-2">Clear</button>
+                  </form>
+            </div>
+            <div class="jumbotron bg-white border border-primary">
+                
+            <div class="col3 mb-2 form-inline no-flex-flow-row">
+                <select id="filterConentType" class="form-control  mr-2"  [(ngModel)] = "filtercontentType">
+                    <option value="0" selected>Static</option>
+                    <option value="1">Live</option>
+                </select>
+                <button type="button" (click)="searchByType()" class="btn btn-danger">Get</button>
+            </div>
+                <div class="table table-hover table-responsive">
+                    <table class=" table">
+                        <thead class="thead-dark table-striped">
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Embed Url</th>
+                            <th scope="col">Channel Name</th>
+                            <th scope="col">Content Type</th>
+                            <th scope="col">Tags</th>           
+                            <!-- <th scope="col">Action</th> -->
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let vid of videos">
+                                <td> {{vid.id}}</td>
+                                <td>
+                                  <button type="button" class="btn btn-link" 
+                                   data-toggle="modal" data-target="#exampleModal"
+                                   (click)="onEditClick(vid)">{{ vid.title }}</button> 
+                               </td>
+                                <td>  
+                                    <span class="d-inline-block text-truncate" style="max-width: 150px;"
+                                     ngbTooltip="{{ vid.description }}" container="body">
+                                    {{ vid.description }}
+                                    </span>
+                                    
+                                </td>
+                                <td>{{ vid.embedUrl }}</td>
+                                <td>{{ vid.channelName }}</td>
+                                <td>{{ vid.contentType }}</td>
+                                <td>{{ vid.tags }}</td>
+                                
+                                <!-- <td>
+                                    
+                                    <button type="button" ngbTooltip="Edit" class="btn btn-outline-info btn-sm">E</button> 
+                                    <button type="button" ngbTooltip="Delete" class="btn btn-outline-danger btn-sm">X</button>
+                                </td> -->
+                            </tr>                     
+                        </tbody>
+                    </table>
+                </div>
+            </div>  
+          
+        </div>
+    </div>
+    
+   
+   
+</div>

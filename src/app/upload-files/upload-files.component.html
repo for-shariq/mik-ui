@@ -1,0 +1,108 @@
+
+<div class="container py-5">
+<div class="row" *ngIf="nauha">
+<div class="col-sm-12">
+    <form #f="ngForm" (ngSubmit) = "onSubmit(f)" enctype="multipart/form-data"
+            >
+    <h1 *ngIf="!(nauha.id > 0)">Fill the below detail to save the Nauha</h1>
+    <div class="form-group" >
+        <label for="title">Title</label>
+        <input type="text" class="form-control" 
+            [ngClass] = "{'is-invalid': title.invalid && title.touched }" 
+            id="title" aria-describedby="titleHelp" 
+            name="title"
+            [(ngModel)] = "nauha.title"
+            #title="ngModel"
+            required>
+            <div class="invalid-feedback" >Please provide a valid title</div>
+            <small id="titleHelp" class="form-text text-muted">Title is a short given name of the nauha</small>
+    </div>
+    <div class="form-group">
+        <label for="location">Mohalla Name</label>
+        <select id="location" name="location" class="form-control"
+            [(ngModel)] = "nauha.locationId"
+            [ngClass] = "{'is-invalid': location.invalid && location.touched }" 
+            required #location="ngModel">
+            <option *ngFor="let opt of locations" [value]="opt.locationId">{{ opt.locationName }}</option>
+        </select>
+        <div class="invalid-feedback" >Please enter a location</div>
+            <small id="locationHelp" class="form-text text-muted">Mohalla name is the location name of nauha</small>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" rows="10" cols="8" class="form-control" 
+            [ngClass] = "{ 'is-invalid': description.invalid && description.touched }"
+            name="description"
+            [(ngModel)] = "nauha.description"
+            required #description="ngModel"></textarea>
+            <div class="invalid-feedback" >Please provide a valid description</div>
+            <small id="descriptionHelp" class="form-text text-muted">Description is a short note on nauha</small>
+    </div>
+    <div class="form-group">
+        <label for="lyricist">Writer</label>
+        <input type="text" class="form-control" id="lyricist" 
+            [ngClass] = "{ 'is-invalid': lyricist.invalid && lyricist.touched }"
+            name="lyricist"
+            [(ngModel)] = "nauha.lyricist"
+            required #lyricist="ngModel">
+            <div class="invalid-feedback" >Please provide a valid writer</div>
+            <small id="lyricistnHelp" class="form-text text-muted">Name of person who has writtern this nauha (type n/a if unknown)</small>
+    </div>
+    <div class="form-group">
+        <label for="orator">Nauha Khawan</label>
+        <input type="text" class="form-control" id="orator" 
+            [ngClass] = "{ 'is-invalid': orator.invalid && orator.touched }"
+            name="orator"
+            [(ngModel)] = "nauha.orator"
+            required #orator="ngModel">
+            <div class="invalid-feedback" >Please provide a Nauha Khawan </div>
+            <small id="oratornHelp" class="form-text text-muted">Name of person who has recited this nauha</small>
+    </div>
+    <div class="form-group">
+        <label for="year">Year</label>
+        <!-- <select id="year" name="year" class="form-control"
+            [(ngModel)] = "nauha.year"
+            required>
+            <option *ngFor="let opt of years" [value]="opt.Id">{{ opt.value }}</option>
+        </select> -->
+        <input type="number" class="form-control" id="year" name="year"
+            [ngClass] = "{ 'is-invalid': year.invalid && year.touched }"
+            [(ngModel)] = "nauha.year" required #year="ngModel">
+            <div class="invalid-feedback" >Please provide a valid year</div>
+            <small id="yearHelp" class="form-text text-muted">Year in which nauha was writtern</small>
+    </div>
+    <div class="form-group"  *ngIf="!(nauha.id > 0)">
+        <label>Upload Nauha</label>
+        <div class="dropbox">
+            <input type="file" 
+                    name="uploadFileName" 
+                    [ngClass] = "{ 'is-invalid': nauhaFile.invalid && nauhaFile.touched }"
+                    (change) = "filesChange($event.target.name, $event.target.files)"
+                    [disabled] = "currentStatus === STATUS_SAVING" 
+                    accept="audio/mp3" 
+                    #nauhaFile
+                    required>
+            <p *ngIf="currentStatus === STATUS_INITIAL">
+                Drag your .mp3 file here to begin<br>
+                or click to browse
+            </p>
+            <p *ngIf="currentStatus === STATUS_SAVING">
+                 Click submit to upload {{ nauhaFile.files.length }} file... <br>
+                 {{ uploadFieldName }}
+            </p>
+            
+        </div>
+        <div class="invalid-feedback-file" *ngIf="currentStatus == STATUS_INITIAL || currentStatus === STATUS_INVALID" >
+            Please provide an audio file in mp3 format</div>
+        
+    </div>
+    <div class="form-check"  *ngIf="(nauha.id > 0 && nauha.id != null)">
+         <input class="form-check-input" id="approved"  type="checkbox" [name]="nauha.id" [checked]="nauha.approved" [(ngModel)] = "nauha.approved">
+         <label class="form-check-label" for="approved">Approved</label>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="f.invalid" *ngIf="!(nauha.id > 0)"> Submit</button>
+
+    </form>
+</div>
+</div>
+</div>

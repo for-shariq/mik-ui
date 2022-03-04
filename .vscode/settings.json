@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/0be898db-634b-414f-b94e-7c00a85bafc3/resourceGroups/mik-ui/providers/Microsoft.Web/sites/mikapp",
+    "appService.deploySubpath": "dist\\muharram-in-kashmir"
+}

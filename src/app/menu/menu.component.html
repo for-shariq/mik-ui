@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Muharram In Kashmir   |</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive='active'>
+          <a class="nav-link" routerLink="/" >Home <span class="sr-only">(current)</span></a>
+        </li>
+
+
+        <li class="nav-item dropdown position-static" routerLinkActive='active'>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Nauha's
+            </a>
+            <!-- div.w-100 make it mega menu, div.top-auto opens the mega menu exactly as position like other normal menu -->
+            <div class="dropdown-menu w-100 top-auto">
+              <div class="container">
+                  <!-- div.w-100 is also needed in certain circumstances to make this menu a mega menu -->
+                  <div class="row w-100" >
+                      <!-- It's yours now. Add columns or change layout as per your wish -->
+                      <div class=" col-sm-2" *ngFor="let location of locations">
+                     
+                        <a class="dropdown-item" routerLink="/nauhas/{{ location.id }}" >{{ location.name }}</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+
+
+
+            <!---------------------------->
+            <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div  *ngFor="let location of locations">
+                 <a class="dropdown-item" routerLink="/nauhas/{{ location.id }}" >{{ location.name }}</a>
+              </div>              
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" routerLink="/nauhas">All Nauha's</a>
+            </div> -->
+          </li>
+
+
+
+        <li class="nav-item" routerLinkActive='active'>
+          <a class="nav-link" [routerLink]="['/videos',0]" href="#">Video</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/upload">Upload Nauha</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/videos',1]" href="#">Live</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="isAuthenticated">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Admin
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item"  tabindex="-1" routerLink="/admin/audio-list">Nauhas</a>
+            <a class="dropdown-item"  tabindex="-1" routerLink="/admin/media-list">Videos</a>
+          </div>
+        </li>
+
+        
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+        <a  href="#" class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" *ngIf="!(isAuthenticated)">Login</a>
+        <a  href="#" class="btn btn-outline-success my-2 my-sm-0" (click) = "onLogout()" *ngIf="isAuthenticated">Logout</a>
+      </form>
+    </div>
+  </nav>

@@ -1,0 +1,88 @@
+<!-- <section class="jumbotron text-center">
+    <div class="container">
+        <h1>Album example</h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator,
+            etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+   
+            <div mat-card-image plyr plyrTitle="Custom video" 
+                [plyrPlaysInline]="true" 
+            
+                [plyrSources]="videoSources" 
+           
+                (plyrInit)="player = $event"
+                (plyrPlay)="played($event)">
+            </div>
+     
+    </div>
+    https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4
+</section> -->
+
+<header>
+    <div class="overlay"></div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" >
+      <source src="../../assets/home_video.mp4" type="video/mp4">
+    </video>
+    <div class="container h-100">
+      <div class="d-flex h-100 text-center align-items-center">
+        <div class="w-100 text-white">
+          <!-- <h1 class="display-3">Labaik-e-Ya Hussain (a.s)</h1> -->
+          <p class="lead mb-0">Muharam in Kashmir | Disseminating the message of Karbala</p>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <section class="my-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <blockquote class="blockquote">
+            <p class="mb-0">The Holy Prophet (S.a.w.a) said: Surely, there exists in the hearts of the Mu'mineen, with respect to the martyrdom of Husayn (A.S.), a heat that never subsides.</p>
+            <footer class="blockquote-footer">Mustadrak al‑Wasail <cite title="Source Title">vol 10 pg. 318</cite></footer>
+          </blockquote>
+         
+          <p><code>Muharram In Kashmir</code> is an initiative based on digitizing the audio and video of Kashmiri old/new nauha, marsiyah, video's etc.</p>
+          <p>The team includes a group of volunteers and has no association with any group or political entity.</p>
+          <p class="mb-0">
+            The vision of the initiative is to create a Digital Islamic Library for Kashmir. Please write us for you suggestions at: 
+            <a href="mailto:feedback.mik@gmail.com">feedback.mik@gmail.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light shadow p-3 mb-5 bg-white rounded">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="h3">Popular Nauha's</p>
+            </div>
+        </div>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let nauha of nauhas">
+      <div class="card mb-4 shadow-sm border-info mb-3" style="width: 20rem; height: 26rem;" >
+        <img src='assets/nauhas-img-k/1.jpg' class="img-thumbnail"/>
+        <div class="card-body ">
+          <p class="card-title text-uppercase">{{ nauha.title }}</p>
+          <p class="card-text">
+            Location: {{ nauha.locationName }} <br/>
+            Writer: {{ nauha.lyricist }}<br/>
+            Nauha Khawan: {{ nauha.orator }}  <br/>
+            Year: {{ nauha.year }} 
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary">download</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+            </div> -->
+            
+            <div mat-card-image plyr plyrTitle="Zainab Che Wadaan Baye Hussaina (Kashmiri)" 
+                 plyrType="audio" [plyrPlaysInline]="true" [plyrCrossOrigin]="true"
+                [plyrSources]="nauha.url"></div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+    

@@ -1,0 +1,34 @@
+<div class="container col-lg-10 py-4 bg-white ">
+    <!-- <div class="row mb-2">
+        <div class="col-md-12 shadow p-3 mb-5 bg-white rounded">          
+                <h3>Video Library</h3>          
+        </div>
+    </div> -->
+    <div class="row mb-2">
+        <div class="col-md-12">            
+            <h1>Video Library</h1>
+            <p class="lead text-muted">A collection of muharram video's, lectures. All the content posted here is pulled from Youtube. 
+                If you want to post any content please contact the Muharram In Kashmir team. An upload feature will be available soon.</p>
+
+                <div class=" row row-cols-1 row-cols-md-3" >
+                  <div class="col mb-2" *ngFor="let vid of videos">
+                    <div class="card h-100">
+                      <div class="embed-responsive embed-responsive-4by3">                        
+                        <iframe width="560" height="315" [src]="sanitizeUrl(vid.embedUrl)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </div>                    
+                      <div class="card-body">
+                        <h5 class="card-title">{{ vid.title }}</h5>
+                        <p class="card-text"> {{ vid.description }} </p>
+                      </div>
+                      <div class="card-footer">
+                        <small class="text-muted">{{ vid.channelName }}</small>
+                      </div>
+                    </div>
+                  </div>         
+                </div>   
+     
+        </div>
+    </div>
+   
+</div>
+
